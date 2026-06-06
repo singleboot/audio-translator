@@ -1,0 +1,95 @@
+server:
+  host: 127.0.0.1
+  port: 8000
+paths:
+  watch_folder: ./watch
+  output_folder: ./outputs
+  db_path: ./jobs.db
+asr:
+  engine: whisper
+  whisper:
+    model_size: large-v3-turbo
+    device: auto
+    compute_type: auto
+    language: auto
+translator:
+  default: noop
+  nllb_local:
+    model: facebook/nllb-200-distilled-600M
+    device: auto
+  gemini_free:
+    api_key: ''
+    model: gemini-1.5-flash
+  openai:
+    api_key: ''
+    model: gpt-4o-mini
+    base_url: https://api.openai.com/v1
+  custom_http:
+    url: ''
+    method: POST
+    headers: {}
+    body_template: '{"text": "{text}", "source": "{src}", "target": "{tgt}"}'
+    response_text_path: translation
+tts:
+  enabled:
+  - edge_tts
+  - sarvam_ai
+  cache_dir: ./models
+  k2_omnivoice:
+    device: auto
+  qwen3_tts:
+    size: 1.7B
+    device: auto
+  coqui_xtts:
+    device: auto
+  edge_tts:
+    voice_overrides: {}
+  openai_tts:
+    api_key: ''
+    model: gpt-4o-mini-tts
+    voice: alloy
+    base_url: https://api.openai.com/v1
+  elevenlabs:
+    api_key: ''
+    model_id: eleven_multilingual_v2
+    voice_id: ''
+
+  sarvam_ai:
+    api_key: ''
+    api_url: https://api.sarvam.ai/v1/text-to-speech
+  indic_parler_tts:
+    device: auto
+    speaker: ''
+    description: ''
+    emotion: ''
+
+languages:
+- es
+- fr
+- de
+- hi
+- bn
+- ta
+- te
+- ml
+- mr
+- gu
+- kn
+- or
+- pa
+- as
+- ur
+watcher:
+  auto_start: false
+  settle_seconds: 2
+  extensions:
+  - .wav
+  - .mp3
+  - .m4a
+  - .flac
+  - .ogg
+  - .aac
+pipeline:
+  max_parallel_tts: 2
+  reference_clip_seconds: 25
+  continue_on_error: true

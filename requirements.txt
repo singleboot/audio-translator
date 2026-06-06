@@ -1,0 +1,49 @@
+# Audio Translator v1 — runtime dependencies.
+# This file lists every package the app MAY need. The local TTS/ASR models
+# only load the ones you actually use, so the app boots even if a few are
+# missing — you only need to install what you turn on.
+
+# --- core web server -------------------------------------------------
+fastapi>=0.110
+uvicorn[standard]>=0.27
+python-multipart>=0.0.9          # for /api/watcher/process upload
+pyyaml>=6.0
+
+# --- ASR -------------------------------------------------------------
+faster-whisper>=1.0.0
+
+# --- translator ------------------------------------------------------
+# Local NLLB-200 (free, GPU)
+# transformers + sentencepiece + sacremoses cover NLLB.
+transformers>=4.40
+sentencepiece>=0.2
+sacremoses>=0.1
+# Optional: OpenAI-compatible translator
+openai>=1.30
+# Optional: Google Gemini
+google-generativeai>=0.5
+# Generic HTTP translator
+requests>=2.31
+
+# --- TTS engines -----------------------------------------------------
+# Edge TTS (free, online, no clone) — install the CLI
+edge-tts>=6.1
+# OpenAI TTS — uses the same `openai` package as above.
+# ElevenLabs (paid, clone)
+elevenlabs>=0.3
+# Coqui XTTSv2 (local, 17 langs, clone)
+TTS>=0.22
+# Qwen3-TTS (local, 10 langs, best free clone) — install only if you use it
+# qwen-tts>=0.1
+# k2-fsa OmniVoice (local, 600+ langs, clone) — install only if you use it
+# omnivoice>=0.1
+# AI4Bharat Indic-Parler-TTS (local, 21 Indic langs, 69 speakers) — install only if you use it
+# pip install git+https://github.com/huggingface/parler-tts.git
+# soundfile is needed by indic-parler-tts
+soundfile>=0.12
+
+# --- misc ------------------------------------------------------------
+# pydub + ffmpeg let us trim the reference audio for cleaner cloning.
+# ffmpeg itself must be installed on the system and on PATH.
+pydub>=0.25
+watchdog>=4.0                   # folder watcher

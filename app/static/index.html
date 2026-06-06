@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Audio Translator v1</title>
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+<header>
+  <h1>Audio Translator v1</h1>
+  <div class="status">
+    <span id="ws-status" class="dot dot-off">offline</span>
+    <span id="watcher-status" class="badge">watcher: ?</span>
+  </div>
+</header>
+
+<main>
+  <section class="card">
+    <h2>Watcher</h2>
+    <div class="row">
+      <label>Watch folder</label>
+      <input id="watch-folder" type="text" readonly />
+    </div>
+    <div class="row">
+      <button id="watcher-start">Start watcher</button>
+      <button id="watcher-stop">Stop watcher</button>
+      <button id="reload-settings">Reload config</button>
+    </div>
+    <p class="hint">
+      Drop audio files into the watch folder. The pipeline auto-detects the
+      source language, translates to every target language, then synthesises
+      speech with the original voice.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>Manual upload</h2>
+    <div class="row">
+      <input id="file-input" type="file" accept="audio/*" />
+      <button id="file-submit">Process</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Translator</h2>
+    <div id="translator-list" class="checkbox-grid"></div>
+  </section>
+
+  <section class="card">
+    <h2>TTS engines</h2>
+    <div class="row">
+      <button id="engine-all">Enable all</button>
+      <button id="engine-none">Disable all</button>
+    </div>
+    <div id="engine-list" class="checkbox-grid"></div>
+  </section>
+
+  <section class="card">
+    <h2>Target languages</h2>
+    <div class="row">
+      <input id="lang-filter" type="text" placeholder="Filter (e.g. en, span, ja)" />
+      <button id="lang-all">All</button>
+      <button id="lang-none">None</button>
+    </div>
+    <div id="lang-list" class="checkbox-grid"></div>
+  </section>
+
+  <section class="card">
+    <h2>Save settings</h2>
+    <div class="row">
+      <button id="save-settings">Save</button>
+      <span id="save-feedback" class="hint"></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Recent jobs</h2>
+    <table id="jobs-table">
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th>File</th>
+          <th>Source lang</th>
+          <th>Engines</th>
+          <th>Langs</th>
+          <th>Artifacts</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>Playback queue</h2>
+    <div class="player">
+      <audio id="player" controls></audio>
+      <div class="player-actions">
+        <button id="play-prev">⏮</button>
+        <button id="play-next">⏭</button>
+        <button id="play-clear">Clear</button>
+        <span id="now-playing" class="hint">—</span>
+      </div>
+      <ol id="playback-list"></ol>
+    </div>
+  </section>
+</main>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
